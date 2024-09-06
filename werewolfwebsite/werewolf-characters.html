@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Werewolf Game</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+
+        /* Header section */
+        header {
+            background-color: #45638a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Navigation menu */
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Main section */
+        section.main {
+            color:#929090;
+            padding: 20px;
+            padding-bottom: 100px;
+            background-color: #292929;
+            background-size: cover;
+            background-attachment: fixed; /* Keep the background fixed during scrolling */
+            overflow: hidden; /* Prevent main from extending too far */
+        }
+
+        /* Section headers */
+        .section-header {
+            color:#bbb9b9;
+            text-align: center;
+            margin: 40px auto;
+        }
+
+        .section-header h2 {
+            color:#bbb9b9;
+            border-bottom: 2px solid #455e94;
+            padding-bottom: 10px;
+        }
+
+        /* Character section */
+        .character {
+            color:#bbb9b9;
+            background-color: rgba(62, 62, 65, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 80%;
+            display: flex;
+            align-items: center;
+            flex-direction: row; /* Ensure the image and text are in a row */
+        }
+
+        .character img {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            margin: 0 20px;
+            size-adjust: cover;
+        }
+
+        .character img.left {
+            order: -1; /* Move image to the left */
+        }
+
+        .character img.right {
+            order: 1; /* Move image to the right */
+        }
+
+        .character h2 {
+            border-bottom: 2px solid #385ea5;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .character p {
+            flex-grow: 1;
+            margin: 0; /* Remove margin to align text properly */
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .character {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .character img {
+                margin-bottom: 20px;
+                margin: 0; /* Remove side margins for mobile view */
+            }
+
+            .character p {
+                margin: 0;
+            }
+        }
+
+        /* Footer section */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+         /* Three dots button */
+         .three-dots {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            color: black;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Name change popup */
+        .name-popup {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: #292929;
+            color: white;
+            border-radius: 8px;
+            padding: 10px;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .name-popup input[type="text"] {
+            width: 93%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background-color: #404040;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .name-popup button {
+            background-color: #45638a;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .saved-name {
+            margin-top: 10px;
+            font-size: 14px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Werewolf Online</h1>
+        <p>"Social" game online</p>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav>
+        <a href=werewolf-home.html>Home</a>
+        <a href="werewolf-howtoplay.html">How to play</a>
+        <a href=werewolf-characters.html>Characters</a>
+        <a href="werewolf-creategame.html">Create Game</a>
+        <a href="#join">Join Game</a>
+    </nav>
+
+    <!-- Character sections -->
+    <section id="characters" class="main">
+        <!-- Civilians section -->
+        <div class="section-header">
+            <h2>Civilians</h2>
+            <p>Consists of villager and special roles</p>
+        </div>
+
+        <!-- Villager section -->
+        <section id="villager" class="character">
+            <img src=https://static.wikia.nocookie.net/lrs/images/c/c8/%E5%AE%98_%E5%B9%B3%E6%B0%91.png/revision/latest?cb=20200707102949&path-prefix=zh alt="Villager" class="left">
+            <div>
+                <h2>Villager</h2>
+                <p>The <strong>Villager</strong> has no special powers. Their goal is to identify and vote out the werewolves. Villagers work together during the day to figure out who is lying and protect their own.</p>
+            </div>
+        </section>
+
+        <!-- Seer section -->
+        <section id="seer" class="character">
+            <img src=https://static.wikia.nocookie.net/lrs/images/8/88/%E5%AE%98_%E9%A0%90%E8%A8%80%E5%AE%B6.png/revision/latest?cb=20200707103348&path-prefix=zh alt="Seer" class="right">
+            <div>
+                <h2>Seer</h2>
+                <p>The <strong>Seer</strong> is a crucial player on the villager team. Each night, the Seer can secretly discover if one player is a werewolf. The Seer must share this information carefully to avoid being targeted by wolves.</p>
+            </div>
+        </section>
+
+        <!-- Witch section -->
+        <section id="witch" class="character">
+            <img src=https://static.wikia.nocookie.net/lrs/images/1/11/%E5%AE%98_%E5%A5%B3%E5%B7%AB.png/revision/latest?cb=20200707102945&path-prefix=zh alt="Witch" class="left">
+            <div>
+                <h2>Witch</h2>
+                <p>The <strong>Witch</strong> has two potions during the whole of one game: a heal potion, and a poison potion. Whilst the witch still has the heal potion, they will be able to know who the werewolfs attacked that night, and hence be able to choose whether to use the heal potion to save them or not. The poison potion allows the witch to kill someone during the night. Both potions can only be used once each game (not night), and only one potion can be used each night. The witch can only heal herself during the first night if she is attacked.</p>
+            </div>
+        </section>
+
+        <!-- Hunter section -->
+        <section id="hunter" class="character">
+            <img src=https://p8.itc.cn/images03/20200531/89dd8f835e8c4a828cfc8d92c62f73df.jpeg alt="Hunter" class="right">
+            <div>
+                <h2>Hunter</h2>
+                <p>The <strong>Hunter</strong> is a deadly ally for the villagers. If the Hunter is eliminated, they can take down another player with them. The hunter cannot activate his ability if he died from the witch's poison.</p>
+            </div>
+        </section>
+
+        <!-- Knight section -->
+        <section id="knight" class="character">
+            <img src=https://p7.itc.cn/images01/20230731/472ad26287624518b9b4c93684d001ee.png alt="Knight" class="left">
+            <div>
+                <h2>Knight</h2>
+                <p>The <strong>Knight</strong> is a. He has a powerful one-time ability which he can activate anytime during
+                    the day before voting - to reveal his identity and challenge one other player. If that
+                player is a wolf, the challenged player instantly dies and the day ends and enters into night phase without voting.
+            If the challenged player is part of the civilian team, the knight himself dies day phase and voting continues.</p>
+            </div>
+        </section>
+
+        <!-- Wolves section -->
+        <div class="section-header">
+            <h2>Wolves</h2>
+            <p>Includes normal werewolf and other special wolves</p>
+        </div>
+
+        <!-- Werewolf section -->
+        <section id="werewolf" class="character">
+            <img src="https://static.wikia.nocookie.net/lrs/images/2/2c/%E5%AE%98_%E7%8B%BC%E4%BA%BA.png/revision/latest?cb=20200707102941&path-prefix=zh" alt="Wolf" class="left">
+            <div>
+                <h2>Werewolf</h2>
+                <p>The <strong>Werewolf</strong> is part of the werewolf team. They try to eliminate villagers at night, while pretending to be innocent during the day. The wolves need to keep their identity hidden to avoid being voted out.</p>
+            </div>
+        </section>
+
+        <!-- Alpha Wolf section -->
+        <section id="alpha-wolf" class="character">
+            <img src=https://static.wikia.nocookie.net/lrs/images/0/04/%E5%AE%98_%E7%8B%BC%E7%8E%8B.png/revision/latest?cb=20200707102942&path-prefix=zh alt="Alpha Wolf" class="right">
+            <div>
+                <h2>Alpha Wolf</h2>
+                <p>The <strong>Alpha Wolf</strong> is a special wolf role. When he
+                dies during the day or night (and not a result of the witch's poison),
+                he will be able to activate his ability to remove one player from the 
+                game.</thead></thead> </head> </p>
+            </div>
+        </section>
+    </section>
+
+
+
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Werewolf Online.</p>
+    </footer>
+
+    <!-- Three dots and name change popup -->
+    <div class="three-dots" id="threeDots">⋮</div>
+
+    <div class="name-popup" id="namePopup">
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        <button onclick="saveName()">Save</button>
+        <div class="saved-name" id="savedName">Name: Guest</div>
+    </div>
+
+    <script>
+        // Toggle the name popup display
+        const threeDots = document.getElementById('threeDots');
+        const namePopup = document.getElementById('namePopup');
+        const savedNameElement = document.getElementById('savedName');
+    
+        // Load the player name from localStorage when the page loads
+        window.onload = function() {
+            const storedName = localStorage.getItem('playerName') || 'Guest';
+            savedNameElement.textContent = 'Name: ' + storedName;
+        }
+    
+        threeDots.addEventListener('click', function() {
+            namePopup.style.display = namePopup.style.display === 'block' ? 'none' : 'block';
+        });
+    
+        // Save the player name function
+        function saveName() {
+            const playerName = document.getElementById('nameInput').value || 'Guest';
+            localStorage.setItem('playerName', playerName); // Save name to localStorage
+            savedNameElement.textContent = 'Name: ' + playerName;
+            namePopup.style.display = 'none';
+        }
+    </script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyARCLTeuNA9wliCwrZrlqamCoReyIO1gi4",
+          authDomain: "werewold-game.firebaseapp.com",
+          projectId: "werewold-game",
+          storageBucket: "werewold-game.appspot.com",
+          messagingSenderId: "516146184909",
+          appId: "1:516146184909:web:0592fca32f8e885b0e9f84"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+      </script>
+</body>
+</html>

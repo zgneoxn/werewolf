@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Werewolf Game</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+
+        /* Header section */
+        header {
+            background-color: #45638a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Navigation menu */
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Main section */
+        section.main {
+            color: #929090;
+            padding: 20px;
+            padding-bottom: 100px;
+            background-color: #292929;
+            background-size: cover;
+            background-attachment: fixed; /* Keep the background fixed during scrolling */
+            overflow: hidden; /* Prevent main from extending too far */
+        }
+
+        /* Section headers */
+        .section-header {
+            color: #bbb9b9;
+            text-align: center;
+            margin: 40px auto;
+        }
+
+        .section-header h2 {
+            color: #bbb9b9;
+            border-bottom: 2px solid #455e94;
+            padding-bottom: 10px;
+        }
+
+        /* Rules section */
+        .rules {
+            background-color: rgba(62, 62, 65, 0.5);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .rules h2 {
+            color: #385ea5;
+            border-bottom: 2px solid #385ea5;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .rules p {
+            color: #bbb9b9;
+            margin: 0;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .rules {
+                padding: 10px;
+            }
+        }
+
+        /* Footer section */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Three dots button */
+        .three-dots {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            color: black;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Name change popup */
+        .name-popup {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: #292929;
+            color: white;
+            border-radius: 8px;
+            padding: 10px;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .name-popup input[type="text"] {
+            width: 93%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background-color: #404040;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .name-popup button {
+            background-color: #45638a;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .saved-name {
+            margin-top: 10px;
+            font-size: 14px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Werewolf Online</h1>
+        <p>"Social" game online</p>
+    </header>
+
+    <!-- Navigation bar -->
+    <nav>
+        <a href="werewolf-home.html">Home</a>
+        <a href="werewolf-howtoplay.html">How to play</a>
+        <a href="werewolf-characters.html">Characters</a>
+        <a href="werewolf-creategame.html">Create Game</a>
+        <a href="#join">Join Game</a>
+    </nav>
+
+    <!-- Rules sections -->
+    <section id="rules" class="main">
+        <!-- Rules section -->
+        <div class="section-header">
+            <h2>Game Rules</h2>
+            <p>Understand the rules to play the game effectively</p>
+        </div>
+
+        <!-- General Rules -->
+        <div class="rules">
+            <h2>General Rules</h2>
+            <p>The game of Werewolf involves players taking on various roles, including villagers and werewolves. The villagers aim to identify and eliminate the werewolves before the werewolves can eliminate all the villagers. The game is played over multiple rounds, with each round consisting of a day and a night phase.</p>
+        </div>
+
+        <!-- Day Phase -->
+        <div class="rules">
+            <h2>Day Phase</h2>
+            <p>During the day, players discuss and vote to eliminate one player whom they suspect to be a werewolf. The player with the most votes is eliminated. This phase involves strategic discussions and accusations.</p>
+        </div>
+
+        <!-- Night Phase -->
+        <div class="rules">
+            <h2>Night Phase</h2>
+            <p>During the night, werewolves secretly choose a player to eliminate, and other special roles may perform their abilities. The Seer, for example, can discover if a player is a werewolf. The night phase ends with a summary of events and the elimination of a player.</p>
+        </div>
+
+        <!-- Special Roles -->
+        <div class="rules">
+            <h2>Special Roles</h2>
+            <p>Various roles have unique abilities, such as the Seer who can identify werewolves, the Witch who has potions to heal or poison players, and the Hunter who can take another player down if eliminated. Understanding these roles is crucial for strategy.</p>
+        </div>
+
+        <!-- Winning the Game -->
+        <div class="rules">
+            <h2>Winning the Game</h2>
+            <p>The game ends when either all werewolves are eliminated or the werewolves outnumber the villagers. Villagers win if they eliminate all werewolves, while werewolves win if they reach a majority.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Werewolf Online.</p>
+    </footer>
+
+    <!-- Three dots and name change popup -->
+    <div class="three-dots" id="threeDots">⋮</div>
+
+    <div class="name-popup" id="namePopup">
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        <button onclick="saveName()">Save</button>
+        <div class="saved-name" id="savedName">Name: Guest</div>
+    </div>
+
+    <script>
+        // Toggle the name popup display
+        const threeDots = document.getElementById('threeDots');
+        const namePopup = document.getElementById('namePopup');
+        const savedNameElement = document.getElementById('savedName');
+    
+        // Load the player name from localStorage when the page loads
+        window.onload = function() {
+            const storedName = localStorage.getItem('playerName') || 'Guest';
+            savedNameElement.textContent = 'Name: ' + storedName;
+        }
+    
+        threeDots.addEventListener('click', function() {
+            namePopup.style.display = namePopup.style.display === 'block' ? 'none' : 'block';
+        });
+    
+        // Save the player name function
+        function saveName() {
+            const playerName = document.getElementById('nameInput').value || 'Guest';
+            localStorage.setItem('playerName', playerName); // Save name to localStorage
+            savedNameElement.textContent = 'Name: ' + playerName;
+            namePopup.style.display = 'none';
+        }
+    </script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyARCLTeuNA9wliCwrZrlqamCoReyIO1gi4",
+          authDomain: "werewold-game.firebaseapp.com",
+          projectId: "werewold-game",
+          storageBucket: "werewold-game.appspot.com",
+          messagingSenderId: "516146184909",
+          appId: "1:516146184909:web:0592fca32f8e885b0e9f84"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+      </script>
+</body>
+</html>
